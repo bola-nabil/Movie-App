@@ -1,0 +1,62 @@
+.nav-home {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.nav-home:hover {
+    color: #ccc;
+}
+
+.nav:hover {
+    color: red;
+    border-bottom-color: var(--main-color);
+    transition: 0.5s;
+    -webkit-transition: 0.5s;
+    -moz-transition: 0.5s;
+    -ms-transition: 0.5s;
+    -o-transition: 0.5s;
+}
+
+.active {
+    color: red;
+}
+
+.active-home {
+    color: red;
+}
+
+.nav-p {
+    padding-left: 100px;
+}
+
+@media (min-width: 0) and (max-width: 600px) {
+    .nav-p {
+        padding-left: 30px;
+    }
+    .nav-home {
+        font-size: 12px;
+    }
+}
+
+@media (min-width: 600px) and (max-width: 992px) {
+    .nav-p {
+        padding-left: 50px;
+    }
+    .nav-home {
+        font-size: 18px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .nav-p {
+        padding-left: 100px;
+    }
+}
+
+.margin-auto {
+    margin: auto;
+}

@@ -1,0 +1,31 @@
+header {
+    background-color: #39445a;
+    position: fixed;
+    box-shadow: 0 1px 5px #000;
+    cursor: pointer;
+    font-weight: normal;
+    z-index: 100;
+}
+
+header .title {
+    font-size: 40px;
+}
+
+header .first,
+.second {
+    padding-left: 30px;
+    padding-right: 30px;
+    font-size: 40px;
+}
+
+@media (max-width: 600px) {
+    header .title {
+        font-size: 30px;
+    }
+    header .first,
+    .second {
+        padding-left: 30px;
+        padding-right: 30px;
+        font-size: 30px;
+    }
+}
