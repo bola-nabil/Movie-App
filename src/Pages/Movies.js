@@ -13,22 +13,21 @@ function Movies() {
     const [content, setContent] = useState([]);
     const [numOfPages, setNumOfPages] = useState();
     const genreForURL = useGenre(selectedGenres);
-    console.log(selectedGenres);
 
     const fetchMovies = async () => {
         const { data } = await axios.get(
-                `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}&with_genres=${genreForURL}`
-        ).catch(function(error) {
-          console.log(Error(error));
-        });
+            `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}&with_genres=${genreForURL}`
+        )
+
         setContent(data.results);
         console.log(data);
         setNumOfPages(data.total_pages);
     }
 
     useEffect(() => {
-        window.scroll(0 , 0);
-        fetchMovies();
+      window.scroll(0, 0);
+      fetchMovies();
+      // eslint-disable-next-line
     }, [genreForURL, page]);
 
     return (
