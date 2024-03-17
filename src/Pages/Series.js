@@ -16,16 +16,15 @@ function Series() {
     const fetchSeries = async () => {
         const { data } = await axios.get(
             `https://api.themoviedb.org/3/discover/tv?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}&with_genres=${genreForURL}`
-        ).catch(function(error) {
-            console.log(Error(error));
-        });
+        );
         setContent(data.results);
         setNumOfPages(data.total_pages);
     }
 
     useEffect(() => {
-        window.scroll(0, 0);
-        fetchSeries();
+      window.scroll(0, 0);
+      fetchSeries();
+      // eslint-disable-next-line
     }, [genreForURL, page]);
 
   return (
