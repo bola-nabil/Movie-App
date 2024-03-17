@@ -1,10 +1,6 @@
 import { useState, useEffect } from "react";
-// import Fade from "@material-ui/core/Fade";
-// import Modal from "@material-ui/core/Modal";
-// import Backdrop from "@material-ui/core/Backdrop";
 import {Fade, Modal, Backdrop} from "@mui/material";
 import {makeStyles} from "@material-ui/core/styles";
-
 import {
   img_500,
   unavailable,
@@ -35,11 +31,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-function TransitionsModal({ children, media_type, id }) {
+function TransitionsModal(props) {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
-  const [content, setContent] = useState();
-  const [video, setVideo] = useState();
+  const [content, setContent] = useState([]);
+  const [video, setVideo] = useState([]);
 
   const handleOpen = () => {
     setOpen(true);
@@ -50,27 +46,31 @@ function TransitionsModal({ children, media_type, id }) {
   }
 
   const fetehData = async () => {
-    const { data } = await axios.get(
-      `https://api.themoviedb.org/3/${media_type}/${id}?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
-    ).catch(function(error) {
-      console.log(Error(error));
-    });
-    setContent(data.results[0]?.key);
+    const { data } = await axios
+      .get(
+        `https://api.themoviedb.org/3/${props.media_type}/${props.id}?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
+      );
+      
+    setContent(data);
+
+    console.log(`media type data: ${props.media_type} / ${props.id}`);
   }
 
   const fetehVideo = async () => {
     const { data } = await axios.get(
-      `https://api.themoviedb.org/3/${media_type}/${id}/videos?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
-    ).catch(function(error) {
-      console.log(Error(error));
-    });
+          `https://api.themoviedb.org/3/${props.media_type}/${props.id}/videos?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
+    );
+
     setVideo(data.results[0]?.key);
+
+    console.log(`media type video: ${props.media_type} / ${props.id}`);
   };
 
 
   useEffect(() => {
-      fetehData();
-      fetehVideo();
+    fetehData();
+    fetehVideo();
+    // eslint-disable-next-line
   }, []);
 
 
@@ -82,7 +82,7 @@ function TransitionsModal({ children, media_type, id }) {
         color="inherit"
         onClick={handleOpen}
       >
-        {children}
+        {props.children}
       </div>
       <Modal
         aria-labelledby="transition-modal-title"
@@ -96,7 +96,7 @@ function TransitionsModal({ children, media_type, id }) {
           timeout: 500,
         }}
       >
-        <div onClick={handleOpen}>
+        <Fade in={open}>
           {content && (
             <div className={classes.paper}>
               <div className="ContentModal">
@@ -137,7 +137,7 @@ function TransitionsModal({ children, media_type, id }) {
                   </span>
 
                   <div>
-                    <Carousel id={id} media_type={media_type} />
+                    <Carousel id={content.id} media_type={content.media_type} />
                   </div>
 
                   <Button
@@ -153,8 +153,7 @@ function TransitionsModal({ children, media_type, id }) {
               </div>
             </div>
           )}
-          <h2>Fuck The World</h2>
-        </div>
+        </Fade>
       </Modal>
     </>
   );

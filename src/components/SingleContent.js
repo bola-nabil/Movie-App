@@ -3,30 +3,23 @@ import { img_300, unavailable } from "../config/config";
 import ContentModal from "./ContentModal";
 import "../css/SingleContent.css";
 
-const SingleContent = ({
-  id,
-  poster,
-  title,
-  date,
-  media_type,
-  vote_average,
-}) => {
+function SingleContent(props) {
   return (
     <>
       <ContentModal>
         <Badge
-          badgeContent={vote_average}
-          color={vote_average > 6 ? "primary" : "secondary"}
+          badgeContent={props.vote_average}
+          color={props.vote_average > 6 ? "primary" : "secondary"}
         />
         <img
           className="poster"
-          src={poster ? `${img_300}${poster}` : unavailable}
-          alt={title}
+          src={props.poster ? `${img_300}${props.poster}` : unavailable}
+          alt={props.title}
         />
-        <b className="title">{title}</b>
+        <b className="title">{props.title}</b>
         <span className="subTitle">
-          {media_type === "tv" ? "TV Series" : "Movie"}
-          <span className="subTitle">{date}</span>
+          {props.media_type === "tv" ? "TV Series" : "Movie"}
+          <span className="subTitle">{props.date}</span>
         </span>
       </ContentModal>
     </>

@@ -2,48 +2,43 @@ import {Chip} from "@material-ui/core"
 import axios from "axios";
 import { useEffect } from "react";
 
-const Genres = ({
-  selectedGenres,
-  setSelectedGenres,
-  genres,
-  setGenres,
-  type,
-  setPage,
-}) => {
+const Genres = (props) => {
   const handleAdd = (genre) => {
-    setSelectedGenres([...selectedGenres, genre]);
-    setGenres(genres.filter((g) => g.id !== genre.id));
-    setPage(1);
+    props.setSelectedGenres([...props.selectedGenres, genre]);
+    props.setGenres(props.genres.filter((g) => g.id !== genre.id));
+    props.setPage(1);
   };
 
   const handleRemove = (genre) => {
-    setSelectedGenres(
-      selectedGenres.filter((selected) => selected.id !== genre.id)
+    props.setSelectedGenres(
+      props.selectedGenres.filter((selected) => selected.id !== genre.id)
     );
-    setGenres([...genres, genre]);
-    setPage(1);
+    props.setGenres([...props.genres, genre]);
+    props.setPage(1);
   };
 
   const fetchGenres = async () => {
     const { data } = await axios.get(
-      `https://api.themoviedb.org/3/genre/${type}/list?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
-    ).catch(function(error) {
-      console.log(Error(error));
-    });
-    console.log(`geners ${data.genres}`);
-    setGenres(data.genres);
+      `https://api.themoviedb.org/3/genre/${props.type}/list?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
+    );
+    
+    
+    props.setGenres(data.genres);
+    console.log(`type of geners = ${props.type}`);
   };
 
   useEffect(() => {
     fetchGenres();
+    
     return () => {
-      setGenres({});
+      props.setGenres([]); // unmounting
     };
+    // eslint-disable-next-line
   }, []);
 
   return (
     <div style={{ padding: "6px 0" }}>
-      {selectedGenres.map((genre) => (
+      {props.selectedGenres.map((genre) => (
         <Chip
           style={{ margin: 2 }}
           label={genre.name}
@@ -54,7 +49,7 @@ const Genres = ({
           onDelete={() => handleRemove(genre)}
         />
       ))}
-      {/* {genres.map((genre) => (
+      {props.genres.map((genre) => (
         <Chip
           style={{ margin: 2 }}
           label={genre.name}
@@ -63,7 +58,7 @@ const Genres = ({
           size="small"
           onClick={() => handleAdd(genre)}
         />
-      ))} */}
+      ))}
     </div>
   );
 };
