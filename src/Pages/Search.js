@@ -1,11 +1,11 @@
 import {useState, useEffect} from "react";
-import axios from "axios";
-import CustomPagination from "../components/CustomPagination";
-import SingleContent from "../components/SingleContent";
-import "../css/Search.css";
-import  {Button, Tab, Tabs, TextField, ThemeProvider} from "@material-ui/core";
+import {Button, Tab, Tabs, TextField, ThemeProvider} from "@material-ui/core";
 import {createTheme} from "@material-ui/core/styles";
 import SearchIcon from "@material-ui/icons/Search";
+import axios from "axios";
+import CustomPagination from "../components/CustomPagination";
+import ContentModal from "../components/ContentModal";
+import "../css/Search.css";
 
 function Search() {
     const [type, setType] = useState(0);
@@ -32,7 +32,6 @@ function Search() {
             );
             setContent(data.results);
             setNumOfPages(data.total_pages);
-            console.log(`search ${data}`);
         } catch(error) {
             console.log(error);
         }
@@ -81,7 +80,7 @@ function Search() {
         <div className="trending">
           {content &&
             content.map((item) => (
-              <SingleContent
+              <ContentModal
                 key={item.id}
                 id={item.id}
                 poster={item.poster_path}

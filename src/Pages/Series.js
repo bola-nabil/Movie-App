@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import SingleContent from "../components/SingleContent";
+import ContentModal from "../components/ContentModal";
 import CustomPagination from "../components/CustomPagination";
 import Genres from "../components/Geners";
 import useGenre from "../hooks/useGenre";
@@ -41,7 +41,7 @@ function Series() {
       <div className="trending">
         {content &&
           content.map((item) => (
-            <SingleContent
+            <ContentModal
               key={item.id}
               id={item.id}
               poster={item.poster_path}

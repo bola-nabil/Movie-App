@@ -1,5 +1,5 @@
 import {useState, useEffect} from "react";
-import SingleContent from "../components/SingleContent";
+import ContentModal from "../components/ContentModal";
 import CustomPagination from "../components/CustomPagination"
 import axios from "axios";
 import "../css/Trending.css";
@@ -22,13 +22,12 @@ function Trending() {
     }, [page]);
 
     return (
-        <>
             <div>
                 <span className="pageTitle">Trending Today</span>
                 <div className="trending">
                     {content &&
                         content.map((item) => (
-                            <SingleContent
+                            <ContentModal
                                 key={item.id}
                                 id={item.id}
                                 poster={item.poster_path}
@@ -41,7 +40,6 @@ function Trending() {
                 </div>
                 <CustomPagination setPage={setPage}/>
             </div>
-        </>
     );
 }
 
