@@ -8,7 +8,6 @@ import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { faFire } from "@fortawesome/free-solid-svg-icons";
 import { faClapperboard } from "@fortawesome/free-solid-svg-icons";
 import { faTv } from "@fortawesome/free-solid-svg-icons";
-
 import "../css/Navbar.css";
 
 function NavBar() {

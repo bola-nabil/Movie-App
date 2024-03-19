@@ -1,15 +1,16 @@
 import { useState, useEffect } from "react";
 import {Fade, Modal, Backdrop} from "@mui/material";
 import {makeStyles} from "@material-ui/core/styles";
+import { Button, Badge} from "@material-ui/core";
+import YouTubeIcon from "@material-ui/icons/YouTube";
 import {
+  img_300,
   img_500,
   unavailable,
   unavailableLandscape,
 } from "../config/config";
-import { Button } from "@material-ui/core";
-import  Carousel from "./Carousel";
-import YouTubeIcon from "@material-ui/icons/YouTube"
 import axios from "axios";
+import  Carousel from "./Carousel";
 import "../css/ContentModal.css";
 
 const useStyles = makeStyles((theme) => ({
@@ -46,14 +47,11 @@ function TransitionsModal(props) {
   }
 
   const fetehData = async () => {
-    const { data } = await axios
-      .get(
+    const { data } = await axios.get(
         `https://api.themoviedb.org/3/${props.media_type}/${props.id}?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
       );
       
     setContent(data);
-
-    console.log(`media type data: ${props.media_type} / ${props.id}`);
   }
 
   const fetehVideo = async () => {
@@ -62,8 +60,6 @@ function TransitionsModal(props) {
     );
 
     setVideo(data.results[0]?.key);
-
-    console.log(`media type video: ${props.media_type} / ${props.id}`);
   };
 
 
@@ -82,7 +78,21 @@ function TransitionsModal(props) {
         color="inherit"
         onClick={handleOpen}
       >
-        {props.children}
+        <Badge
+          badgeContent={props.vote_average}
+          color={props.vote_average > 6 ? "primary" : "secondary"}
+          overlap="rectangular"
+        />
+        <img
+          className="poster"
+          src={props.poster ? `${img_300}${props.poster}` : unavailable}
+          alt={props.title}
+        />
+        <b className="title">{props.title}</b>
+        <span className="subTitle">
+          {props.media_type === "tv" ? "TV Series" : "Movie"}
+          <span className="subTitle">{props.date}</span>
+        </span>
       </div>
       <Modal
         aria-labelledby="transition-modal-title"
@@ -137,7 +147,7 @@ function TransitionsModal(props) {
                   </span>
 
                   <div>
-                    <Carousel id={content.id} media_type={content.media_type} />
+                    <Carousel id={props.id} media_type={props.media_type} />
                   </div>
 
                   <Button

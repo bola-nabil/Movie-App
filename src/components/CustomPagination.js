@@ -14,7 +14,6 @@ function CustomPagination({setPage, numOfPages = 10}) {
     window.scroll(0,0);
   }
   return (
-    <>
      <div
       style={{
         width: "100%",
@@ -33,7 +32,6 @@ function CustomPagination({setPage, numOfPages = 10}) {
           />
         </ThemeProvider>
      </div>
-    </>
   );
 }
 

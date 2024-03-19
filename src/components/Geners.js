@@ -2,11 +2,14 @@ import {Chip} from "@material-ui/core"
 import axios from "axios";
 import { useEffect } from "react";
 
-const Genres = (props) => {
+function Genres(props) {
+
   const handleAdd = (genre) => {
     props.setSelectedGenres([...props.selectedGenres, genre]);
     props.setGenres(props.genres.filter((g) => g.id !== genre.id));
-    props.setPage(1);
+    if (typeof props.setPage === 'function') {
+      props.setPage(1);
+    }
   };
 
   const handleRemove = (genre) => {
@@ -14,7 +17,9 @@ const Genres = (props) => {
       props.selectedGenres.filter((selected) => selected.id !== genre.id)
     );
     props.setGenres([...props.genres, genre]);
-    props.setPage(1);
+    if (typeof props.setPage === "function") {
+      props.setPage(1);
+    }
   };
 
   const fetchGenres = async () => {
@@ -22,16 +27,14 @@ const Genres = (props) => {
       `https://api.themoviedb.org/3/genre/${props.type}/list?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
     );
     
-    
     props.setGenres(data.genres);
-    console.log(`type of geners = ${props.type}`);
   };
 
   useEffect(() => {
     fetchGenres();
     
     return () => {
-      props.setGenres([]); // unmounting
+      props.setGenres([]);
     };
     // eslint-disable-next-line
   }, []);

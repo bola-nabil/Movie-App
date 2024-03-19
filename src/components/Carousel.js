@@ -38,21 +38,18 @@ const Gallery = (props) => {
   const fetchCredits = async() => {
     const { data } = await axios.get(
         `https://api.themoviedb.org/3/${props.media_type}/${props.id}/credits?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
-      );
+    );
 
     setCredits(data.cast);
-
-    console.log(`gallery type: ${props.media_type} / ${props.id}`)
   }
 
   useEffect(() => {
     fetchCredits();
     // eslint-disable-next-line
-  },[])
+  },[]);
 
 
   return (
-    <>
       <AliceCarousel
         mouseTracking
         infinite
@@ -62,7 +59,6 @@ const Gallery = (props) => {
         items={items}
         autoPlay
       />
-    </>
   );
 }
 
