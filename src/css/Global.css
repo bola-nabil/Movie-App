@@ -34,5 +34,17 @@
 }
 
 .not-found {
-  height: calc(100vh - 140px);
+  height: calc(100vh - 155px);
+}
+
+@media(max-width: 600px) {
+  .not-found {
+    height: calc(100vh - 140px);
+  }
+}
+
+@media(min-width: 1200px) {
+  .not-found {
+      height: calc(100vh - 215px);
+  }
 }
